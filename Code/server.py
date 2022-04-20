@@ -12,7 +12,9 @@ totalAnswersCorrect = 0
 teamAnswersCorrect = {1:0,2:0}
 questionBankName = "questionBank.json"
 
-# creates a handler for the server that responds to requests with the html file
+
+
+# creates an http handler that sends the client the quiz html file
 class MyHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):#This is 
         self.send_response(200)
@@ -20,7 +22,7 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
         self.end_headers()
         splitrq = self.requestline.split()
         
-        questionBank = open("questionBank.json", "r")
+        questionBank = open(questionBankName, "r")
         quiz = open("Quiz.html", "r")
         questions = questionBank.read()
         quiz = quiz.read()
@@ -69,6 +71,8 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header('Content-type', 'text/html')
         self.end_headers()
+
+
 
 # creates a server that listens on port 80
 server = http.server.HTTPServer(('', 80), MyHandler)
