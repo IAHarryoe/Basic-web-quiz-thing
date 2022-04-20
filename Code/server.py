@@ -7,8 +7,6 @@ import websockets
 #sets the active directory to the directory of the server.py file
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
-
-
 quiz = open("Quiz.html", "r")
 quiz = quiz.read()
 totalAnswersCorrect = 0
