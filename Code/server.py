@@ -1,17 +1,19 @@
 import http.server
 import json
 import os
-
+import asyncio
+import websockets
 
 #sets the active directory to the directory of the server.py file
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
+
+
 
 quiz = open("Quiz.html", "r")
 quiz = quiz.read()
 totalAnswersCorrect = 0
 teamAnswersCorrect = {1:0,2:0}
 questionBankName = "questionBank.json"
-
 
 
 # creates an http handler that sends the client the quiz html file
