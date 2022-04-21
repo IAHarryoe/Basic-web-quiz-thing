@@ -23,9 +23,11 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
         splitrq = self.requestline.split()
         
         questionBank = open(questionBankName, "r")
-        quiz = open("Quiz.html", "r")
+        quizf = open("Quiz.html", "r")
         questions = questionBank.read()
-        quiz = quiz.read()
+        questionBank.close()
+        quiz = quizf.read()
+        quizf.close()
         quiz = quiz.replace("[{THISTEXTISREPLACEDLATERBYSTUFF:'ok?'}]", questions)
         self.wfile.write(bytes(quiz, "utf-8"))
         #prints the message content
@@ -38,16 +40,17 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
         global userCorrectData
         global totalAnswersCorrect
         self.send_response(200)
-        self.send_header('Content-type', 'text/html')
+        self.send_header('Content-type', 'text/json')
         self.end_headers()
-        quiz = open("Quiz.html", "r")
-        questionBank = open(questionBankName, "r")
-        questions = questionBank.read()
-        quiz = quiz.read()
-        quiz = quiz.replace("[{THISTEXTISREPLACEDLATERBYSTUFF:'ok?'}]", questions)
-        self.wfile.write(bytes(quiz, "utf-8"))
+        #quiz = open("Quiz.html", "r")
+        #questionBank = open(questionBankName, "r")
+        #questions = questionBank.read()
+        #quiz = quiz.read()
+        #quiz = quiz.replace("[{THISTEXTISREPLACEDLATERBYSTUFF:'ok?'}]", questions)
+        #self.wfile.write(bytes(quiz, "utf-8"))
         print("POST request received")
         print("Request line:" + self.requestline)
+        
         #prints the message content
         content_length = int(self.headers['Content-Length'])
         messageData = str(self.rfile.read(content_length))
@@ -67,6 +70,7 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
             print(f"{totalAnswersCorrect} correct answers \n Team 1: {teamAnswersCorrect[1]} \n Team 2: {teamAnswersCorrect[2]}")
             for key in userCorrectData.keys():
                 print(f"{key}: {userCorrectData[key]}")
+        self.wfile.write(bytes(json.dumps({"teamAnswersCorrect":teamAnswersCorrect, "totalAnswersCorrect":totalAnswersCorrect,"userCorrectData":userCorrectData}), "utf-8"))
         
         
     def do_HEAD(self):
