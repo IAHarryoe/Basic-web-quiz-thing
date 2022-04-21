@@ -55,13 +55,13 @@
       top: 50%;
       left: 50%;
       /*half of width and height of div*/
-      transform: translate(-50%,-50%);
-      -ms-transform: translate(-50%,-50%);
+      transform: translate(-50%,-40%);
+      -ms-transform: translate(-50%,-40%);
 
       background-color: #f2f2f2;
       padding: 20px;
       width: 80%;
-      height: 80%;
+      height: 60%;
       margin: 0 auto;
       border: 1px solid #ccc;
       border-radius: 5px;
@@ -188,6 +188,7 @@
     questionBank = [{THISTEXTISREPLACEDLATERBYSTUFF:'ok?'}];
     var score = 0;
     var server_ip = location.host;
+    var lastResponse;
 
     function sanitizeString(str){
       str = str.replace(/[^a-z0-9áéíóúñü \.,_-]/gim,"");
@@ -198,13 +199,17 @@
 			var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-          console.log(this.responseText);
+          lastResponse = this.responseText;
+          console.log(lastResponse);
+          lastResponse = JSON.parse(lastResponse);
+          document.getElementById("Team_scores").innerHTML = "Team 1: " + lastResponse["teamAnswersCorrect"]["1"] + "<br> Team 2: " + lastResponse["teamAnswersCorrect"]["2"];
         }
       };
       
       xhttp.open("POST", server_ip, true);
       xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xhttp.send(JSON.stringify(data));
+      
     }
 
     var currentQuestion = Math.floor(Math.random() * questionBank.length);
@@ -269,9 +274,8 @@
 </head>
 <body onload="setQuestion()">
   <div id="Top_left_name_text">
-    <h1 id="topLeftNameStuff">
-      
-    </h1>
+    <h1 id="topLeftNameStuff"></h1>
+    <h2 id= "Team_scores"></h2>
   </div>
   <div id="overlay">
     <div id="overlay_Text">
