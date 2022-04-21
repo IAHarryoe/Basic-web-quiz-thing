@@ -14,7 +14,7 @@
   },
   {
     "question":"Which sentence is using commas incorrectly?",
-    "answers": ["It is too late, to be, writing, bad, sentences,,,,,,,,", "You can use commas like this, or you can use them like that.", "What's going on, Gerald?", "Drink 3 cups of water, every day."],
+    "answers": ["It is too late to be writing bad sentences", "You can use commas like this, or you can use them like that.", "What's going on, Gerald?", "Drink 3 cups of water, every day."],
     "correctAnswer": "Drink 3 cups of water, every day.",
     "correctAnswerID": 3
   },
@@ -119,5 +119,47 @@
     "answers": ["John, the electrician, fixed my breaker.", "Do you want ice cream, or do you want donuts?", "Bob, the guy down the hall, wants you to quiet down.", "Mr. Edwards, the college's statistics teacher, is a nice guy."],
     "correctAnswer": "Do you want ice cream, or do you want donuts?",
     "correctAnswerID": 1
+  },
+  {
+    "question":"Which sentence is using commas wrong?",
+    "answers": ["Is this answer wrong, or is this answer right?","Jeff is, a scary guy","Bob, are you ok? I'm not ok.","I'm not ok, Bob."],
+    "correctAnswer": "Jeff is, a scary guy",
+    "correctAnswerID": 1
+  },
+  {
+    "question":"How many commas are in the following sentence: 'sometimes, I like to eat a lot of donuts, but I like to eat a lot of donuts, sometimes.'",
+    "answers": ["2", "3", "4", "5"],
+    "correctAnswer": "3",
+    "correctAnswerID": 1
+  },
+  {
+    "question":"is writing a comma wrong?",
+    "answers": ["Yes", "No", "Maybe", "sometimes"],
+    "correctAnswer": "sometimes",
+    "correctAnswerID": 3
+  },
+  {
+    "question":"Did this image of a cat load? <br> <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Cat_poster_1.jpg/1024px-Cat_poster_1.jpg' alt='image' style='width:30%' />",
+    "answers": ["Yes", "No", "please", "say this worked"],
+    "correctAnswer": "Yes",
+    "correctAnswerID": 0
+  },
+  {
+    "question":"How many comma rules are there?",
+    "answers": ["9", "more than 50", "8", "depends on who you ask"],
+    "correctAnswer": "depends on who you ask",
+    "correctAnswerID": 3
+  },
+  {
+    "question":"What is the powerhouse of the comma rule?",
+    "answers": ["The nuclecomma", "The midocomma", "Flagcomma","The comman good"],
+    "correctAnswer": "The midocomma",
+    "correctAnswerID": 1
+  },
+  {
+    "question":"What is the airspeed velocity of an unladen swallow?",
+    "answers": ["10", "African or European?", "yes", "11 meters per second."],
+    "correctAnswer": "African or European?",
+    "correctAnswerID": 3
   }
 ]
