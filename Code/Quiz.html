@@ -44,7 +44,7 @@
       top: 50%;
       left: 50%;
       font-size: 50px;
-      color: #b82424;
+      color: #ff0000;
       transform: translate(-50%,-50%);
       -ms-transform: translate(-50%,-50%);
       
@@ -182,6 +182,7 @@
     }
   </style>
   <script type="text/javascript">
+    var hasWonAlert = false;
     var name;
     var team;
     questionBank = [{THISTEXTISREPLACEDLATERBYSTUFF:'ok?'}];
@@ -235,9 +236,14 @@
         document.getElementById("Correct_Answer").innerHTML = "Correct!";
         
         score++;
+
         document.getElementById("score").innerHTML = "Score: " + score;
-        sendData({answerCorrect:true, question:questionBank[currentQuestion].question, answer:questionBank[currentQuestion].answers[ButtonNumber], team:team,score:score,name:name});
+        sendData({answerCorrect:true, questionID:currentQuestion, team:team,score:score,name:name});
         currentQuestion = Math.floor(Math.random() * questionBank.length);
+        if (score>10 && !hasWonAlert) {
+          alert("You're done! Continue if you want to.");
+          hasWonAlert = true;
+        }
         setQuestion();
       } else {
         document.getElementById("Correct_Answer").innerHTML = "Incorrect!";

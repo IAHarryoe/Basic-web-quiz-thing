@@ -12,7 +12,7 @@ quiz = quiz.read()
 totalAnswersCorrect = 0
 teamAnswersCorrect = {1:0,2:0}
 questionBankName = "questionBank.json"
-
+userCorrectData = {}
 
 # creates an http handler that sends the client the quiz html file
 class MyHandler(http.server.BaseHTTPRequestHandler):
@@ -35,6 +35,7 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
         
         
     def do_POST(self):#this is the function that handles POST requests sent from clients
+        global userCorrectData
         global totalAnswersCorrect
         self.send_response(200)
         self.send_header('Content-type', 'text/html')
@@ -54,18 +55,19 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
         if messageData.startswith("b'"):
             messageData = messageData.replace("b'", "")
         if messageData[-1] == "'":
-            messageData = messageData.removesuffix("'")
+            messageData = messageData[0:-1]
+        print(messageData)
+        formattedData = json.loads(messageData)
+        print(formattedData)
         
+        if formattedData["answerCorrect"]:
+            userCorrectData[formattedData["name"]] = formattedData["score"]
+            teamAnswersCorrect[formattedData["team"]] += 1
+            totalAnswersCorrect += 1
+            print(f"{totalAnswersCorrect} correct answers \n Team 1: {teamAnswersCorrect[1]} \n Team 2: {teamAnswersCorrect[2]}")
+            for key in userCorrectData.keys():
+                print(f"{key}: {userCorrectData[key]}")
         
-        try:
-            formattedData = json.loads(messageData)
-            print(formattedData)
-            if formattedData["answerCorrect"]:
-                teamAnswersCorrect[formattedData["team"]] += 1
-                totalAnswersCorrect += 1
-                print(f"{totalAnswersCorrect} correct answers \n Team 1: {teamAnswersCorrect[1]} \n Team 2: {teamAnswersCorrect[2]}")
-        except:
-            pass
         
     def do_HEAD(self):
         self.send_response(200)
@@ -74,8 +76,10 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
 
 
 
-# creates a server that listens on port 80
+# creates the user server that listens on port 80
 server = http.server.HTTPServer(('', 80), MyHandler)
+
+
 
 # starts the server
 server.serve_forever()
